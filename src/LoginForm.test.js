@@ -3,6 +3,20 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import LoginForm from "./LoginForm";
 
 describe("<LoginForm />", () => {
+  it("renders email input", () => {
+    render(<LoginForm onSubmit={() => null} />);
+
+    const email = screen.getByPlaceholderText(/^test/i);
+    expect(email).toBeInTheDocument();
+  });
+
+  it("password input has not value", () => {
+    render(<LoginForm onSubmit={() => null} />);
+
+    const password = screen.getByLabelText(/비밀번호/);
+    expect(password).toHaveValue("");
+  });
+
   it("enables button when both email and password are entered", () => {
     render(<LoginForm onSubmit={() => null} />);
     const button = screen.getByText(/로그인/);
