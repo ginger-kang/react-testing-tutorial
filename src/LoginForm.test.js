@@ -16,4 +16,19 @@ describe("<LoginForm />", () => {
 
     expect(button).toBeEnabled();
   });
+
+  it("submits form when button is clicked", () => {
+    const handleSubmit = jest.fn();
+    render(<LoginForm onSubmit={handleSubmit} />);
+
+    const email = screen.getByLabelText(/이메일/);
+    const password = screen.getByLabelText(/비밀번호/);
+
+    fireEvent.change(email, { target: { value: "test@test.com" } });
+    fireEvent.change(password, { target: { value: "Test1234" } });
+
+    fireEvent.click(screen.getByText(/로그인/));
+
+    expect(handleSubmit).toHaveBeenCalledTimes(1);
+  });
 });
